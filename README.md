@@ -1,13 +1,13 @@
 
 # Introduction
 
-This is a simple RP2350 application that runs on a [Raspberry Pi Pico 2](https://www.raspberrypi.com/products/raspberry-pi-pico-2/) microcontroller board. The application can be built only with Arm GNU Toolchain without using the Pico SDK build system (but Pico SDK is still required for CMSIS files). More information about this is given in my blog post []().
+This is a simple RP2350 application that runs on a [Raspberry Pi Pico 2](https://www.raspberrypi.com/products/raspberry-pi-pico-2/) microcontroller board that blinks the LED. The application can be built with Arm GNU Toolchain without using the Pico SDK build system (but Pico SDK is still required for CMSIS files). More information about this is given in my blog post [Using a Pico 2 RP2350 without the Pico SDK Build System](https://metebalci.com/blog/using-a-pico2-rp2350-without-the-pico-sdk-build-system/).
 
 # Requirements
 
-[Pico SDK](https://github.com/raspberrypi/pico-sdk) is required for CMSIS header and source files. [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) is required to build the code. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) is required. Alternatively, picotool can be used for flashing.
+[Pico SDK](https://github.com/raspberrypi/pico-sdk) is required for CMSIS header and source files. [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) is required to build the code. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) and a debug probe like [Raspberry Pi Debug Probe](https://www.raspberrypi.com/products/debug-probe/) is required. Alternatively, picotool can be used for flashing.
 
-This sample is written and tested for Raspberry Pi Pico 2 microcontroller board on Linux (Ubuntu 24.04) using Arm GNU Toolchain 13.3.Rel1 and Pico SDK 2.0.0.
+The project is tested on a Raspberry Pi Pico 2 microcontroller board and built on Linux (Ubuntu 24.04) using Arm GNU Toolchain 13.3.Rel1 and Pico SDK 2.0.0.
 
 # Files
 

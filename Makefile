@@ -17,6 +17,7 @@ CC = arm-none-eabi-gcc
 # modify these to add/remove different code/object files
 C_OBJECTS = main.o syscalls.o
 S_OBJECTS = minimum_arm_image_def_block.o
+ELF = program.elf
 
 # sets DEBUGFLAGS based on debug above
 ifeq ($(debug), 1)
@@ -68,10 +69,10 @@ LDFLAGS += -static
 LDFLAGS += --specs=nano.specs
 LDFLAGS += -Wl,--start-group -lc -lm -Wl,--end-group
 
-all: clean program.elf
+all: clean $(ELF)
 
 clean:
-	rm -rf program.elf *.o
+	rm -rf $(ELF) *.o
 
 %.o: %.c Makefile | pico-sdk
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -79,14 +80,14 @@ clean:
 %.o: %.s Makefile | pico-sdk
 	$(CC) $(ASFLAGS) -c -o $@ $<
 
-program.elf: $(C_OBJECTS) $(S_OBJECTS) Makefile linker.ld
+$(ELF): $(C_OBJECTS) $(S_OBJECTS) Makefile linker.ld
 	$(CC) -o $@ $(C_OBJECTS) $(S_OBJECTS) $(LDFLAGS)
 
-flash: program.elf
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" -c "program $< verify reset exit"
+flash: clean $(ELF)
+	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" -c "program $(ELF) verify reset exit"
 
-debug: program.elf
-	arm-none-eabi-gdb -ex "target remote localhost:3333" -ex "monitor reset init" -ex "break Reset_Handler" $<
+debug: clean $(ELF)
+	arm-none-eabi-gdb -ex "target remote localhost:3333" -ex "monitor reset init" -ex "break Reset_Handler" $(ELF)
 
 openocd-server:
 	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"

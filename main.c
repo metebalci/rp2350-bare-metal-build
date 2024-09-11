@@ -25,7 +25,7 @@ void SecureFault_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 void SVC_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 void DebugMon_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 void PendSV_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
-void SysTick_Handler(void);
+void SysTick_Handler(void) __attribute__ ((weak, alias("Default_Handler")));
 
 // defined in system_RP2350.h
 typedef void(*VECTOR_TABLE_Type)(void);
@@ -87,32 +87,6 @@ void HardFault_Handler(void)
   while (1);
 }
 
-// system_init is called very early from startup
-// configure power and clock here
-void SystemInit(void) 
-{
-  // if clksource = external, then hclk/8 is used for systick
-  // then LOAD should be 32MHz/8/1000, 4000 for every ms
-  // if clksource = processor, then sysclk is used for systick
-  // then LOAD should be 32MHz/1000, 32000 for every ms
-  SysTick->LOAD = 32000;
-  // set current value to 0
-  SysTick->VAL = 0;
-  // bit 2 = clksource = processor (set to 0 for external)
-  // bit 1 = systick exception generation enabled
-  // bit 0 = systick counter enabled
-  SysTick->CTRL = 0b111;
-}
-
-// a simple systick implementation for timeinms counter
-static volatile uint32_t timeinms = 0;
-
-// this name is used in the vector table for systick exception
-void SysTick_Handler(void)
-{
-  timeinms++;
-}
-
 __STATIC_FORCEINLINE void configure_led()
 {
   // function 5 = SIO 
@@ -139,7 +113,6 @@ __STATIC_FORCEINLINE void flip_led()
 
 int main(void) 
 {
-
   configure_led();
   turn_led_on();
   
