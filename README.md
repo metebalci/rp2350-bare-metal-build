@@ -5,7 +5,9 @@ This is a simple RP2350 application that runs on a [Raspberry Pi Pico 2](https:/
 
 # Requirements
 
-[Pico SDK](https://github.com/raspberrypi/pico-sdk) is required for CMSIS header and source files. [Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) is required to build the code. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) and a debug probe like [Raspberry Pi Debug Probe](https://www.raspberrypi.com/products/debug-probe/) is required. Alternatively, picotool can be used for flashing.
+[Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) is required to build the code. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) and a debug probe like [Raspberry Pi Debug Probe](https://www.raspberrypi.com/products/debug-probe/) is required. Alternatively, picotool can be used for flashing. Makefile's flash target uses openocd.
+
+[Pico SDK](https://github.com/raspberrypi/pico-sdk) is required to build the code, as it contains the CMSIS header and source files, but it is automatically downloaded by the Makefile. 
 
 The project is tested on a Raspberry Pi Pico 2 microcontroller board and built on Linux (Ubuntu 24.04) using Arm GNU Toolchain 13.3.Rel1 and Pico SDK 2.0.0.
 
