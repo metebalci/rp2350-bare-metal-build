@@ -66,14 +66,14 @@ __NO_RETURN void Reset_Handler(void)
   __set_PSPLIM((uint32_t)(&__STACK_LIMIT));
 
   // copy data section from FLASH to RAM
-  extern uint32_t* __data_start__;
-  extern uint32_t* __data_end__;
-  extern uint32_t* __data_source__;
+  extern uint32_t __data_start__;
+  extern uint32_t __data_end__;
+  extern uint32_t __data_source__;
 
-  uint32_t* p = __data_start__;
-  uint32_t* q = __data_source__;
+  uint32_t* p = &__data_start__;
+  uint32_t* q = &__data_source__;
 
-  while (p < __data_end__)
+  while (p < &__data_end__)
   {
     *p++ = *q++;
   }
