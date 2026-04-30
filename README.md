@@ -17,11 +17,19 @@ The project is tested on a Raspberry Pi Pico 2 microcontroller board and built o
 - main.c: main application
 - syscalls.c: syscall stubs
 - linker.ld: linker description script
+- Makefile: build, flash, and debug targets
+
+# Build
+
+Two toggles at the top of the `Makefile` control how `program.elf` is built:
+
+- `debug = 1` (default) compiles with `-g3 -O0`; `debug = 0` compiles with `-O2`.
+- `fpu = soft` (default), `softfp`, or `hard` selects the float ABI / FPU configuration. The same setting is applied to C, assembler, and link flags.
 
 ## Makefile targets
 
-- all (default target): clean and builds program.elf
-- reset: resets RP2350 (can be used with BOOTSEL button)
+- all (default target): builds program.elf (rebuilds only if sources changed)
+- reset: resets RP2350 (a software substitute for pressing the BOOTSEL button)
 - flash: flashes program.elf (rebuilds only if sources changed)
 - openocd-server: runs openocd gdb server
 - debug: runs gdb (connects to openocd gdb server, resets, puts a breakpoint to Reset_Handler)

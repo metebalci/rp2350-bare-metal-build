@@ -69,9 +69,12 @@ LDFLAGS += -static
 LDFLAGS += --specs=nano.specs
 LDFLAGS += -Wl,--start-group -lc -lm -Wl,--end-group
 
+# shared openocd invocation for flash, openocd-server, reset
+OPENOCD = openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000"
+
 .PHONY: all clean flash debug openocd-server reset size
 
-all: clean $(ELF)
+all: $(ELF)
 
 clean:
 	rm -rf $(ELF) *.o
@@ -86,16 +89,16 @@ $(ELF): $(C_OBJECTS) $(S_OBJECTS) Makefile linker.ld
 	$(CC) -o $@ $(C_OBJECTS) $(S_OBJECTS) $(LDFLAGS)
 
 flash: $(ELF)
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000" -c "program $(ELF) verify reset exit"
+	$(OPENOCD) -c "program $(ELF) verify reset exit"
 
 debug: $(ELF)
 	arm-none-eabi-gdb -ex "target remote localhost:3333" -ex "monitor reset init" -ex "break Reset_Handler" $(ELF)
 
 openocd-server:
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000"
+	$(OPENOCD)
 
 reset:
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000" -c "init; reset; exit;"
+	$(OPENOCD) -c "init; reset; exit;"
 
 size: $(ELF)
 	arm-none-eabi-size $(ELF)
