@@ -96,4 +96,4 @@ reset:
 	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "init; reset; exit;"
 
 pico-sdk:
-	git clone --depth 1 -b 2.0.0 https://github.com/raspberrypi/pico-sdk.git $@
+	git clone --depth 1 -b 2.2.0 https://github.com/raspberrypi/pico-sdk.git $@

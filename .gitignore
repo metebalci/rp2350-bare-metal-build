@@ -1,0 +1,4 @@
+CLAUDE.md
+pico-sdk/
+*.o
+program.elf
