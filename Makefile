@@ -2,14 +2,14 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# set debug to 0 or 1
+# set debug to 0 or 1 (override on the command line, e.g. make debug=0)
 # adjust optimization flag accordingly below
-debug = 1
-# set fpu to soft, softfp or hard
+debug ?= 1
+# set fpu to soft, softfp or hard (override on the command line, e.g. make fpu=hard)
 # soft:   software fpu, soft abi
 # softfp: hardware fpu, soft abi
 # hard:   harwdare fpu, hard abi
-fpu = soft
+fpu ?= soft
 
 # specify an aarch32 bare-metal eabi toolchain
 CC = arm-none-eabi-gcc

@@ -5,7 +5,7 @@ This is a simple RP2350 application that runs on a [Raspberry Pi Pico 2](https:/
 
 # Requirements
 
-[Arm GNU Toolchain](https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain) is required to build the code. The RP2350's Cortex-M33 is an Armv8-M core, so the **AArch32 bare-metal target (`arm-none-eabi`)** must be used — not the AArch64 (`aarch64-none-elf`) variant. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) and a debug probe like [Raspberry Pi Debug Probe](https://www.raspberrypi.com/products/debug-probe/) is required. Alternatively, picotool can be used for flashing. Makefile's flash target uses openocd.
+[Arm GNU Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) is required to build the code. The RP2350's Cortex-M33 is an Armv8-M core, so the **AArch32 bare-metal target (`arm-none-eabi`)** must be used — not the AArch64 (`aarch64-none-elf`) variant. In order to flash (and debug if required), [openocd](https://github.com/raspberrypi/openocd) and a debug probe like [Raspberry Pi Debug Probe](https://www.raspberrypi.com/products/debug-probe/) is required. Alternatively, picotool can be used for flashing. Makefile's flash target uses openocd.
 
 [Pico SDK](https://github.com/raspberrypi/pico-sdk) is required to build the code, as it contains the CMSIS header and source files, but it is automatically downloaded by the Makefile. 
 
@@ -21,10 +21,10 @@ The project is tested on a Raspberry Pi Pico 2 microcontroller board and built o
 
 # Build
 
-Two toggles at the top of the `Makefile` control how `program.elf` is built:
+Two toggles at the top of the `Makefile` control how `program.elf` is built. Each can be set on the command line (e.g. `make debug=0`) or by editing the default in the `Makefile`:
 
-- `debug = 1` (default) compiles with `-g3 -O0`; `debug = 0` compiles with `-O2`.
-- `fpu = soft` (default), `softfp`, or `hard` selects the float ABI / FPU configuration. The same setting is applied to C, assembler, and link flags.
+- `debug` — `1` (default) compiles with `-g3 -O0`; `0` compiles with `-O2`.
+- `fpu` — `soft` (default), `softfp`, or `hard` selects the float ABI / FPU configuration. The same setting is applied to C, assembler, and link flags.
 
 ## Makefile targets
 
