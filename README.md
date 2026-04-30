@@ -22,9 +22,10 @@ The project is tested on a Raspberry Pi Pico 2 microcontroller board and built o
 
 - all (default target): clean and builds program.elf
 - reset: resets RP2350 (can be used with BOOTSEL button)
-- flash: flashes program.elf (does not rebuild the program.elf)
+- flash: flashes program.elf (rebuilds only if sources changed)
 - openocd-server: runs openocd gdb server
 - debug: runs gdb (connects to openocd gdb server, resets, puts a breakpoint to Reset_Handler)
+- size: prints the section sizes of program.elf
 
 # Using the debug probe from WSL
 
