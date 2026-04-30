@@ -84,16 +84,16 @@ $(ELF): $(C_OBJECTS) $(S_OBJECTS) Makefile linker.ld
 	$(CC) -o $@ $(C_OBJECTS) $(S_OBJECTS) $(LDFLAGS)
 
 flash: clean $(ELF)
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000" -c "program $(ELF) verify reset exit"
+	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000" -c "program $(ELF) verify reset exit"
 
 debug: clean $(ELF)
 	arm-none-eabi-gdb -ex "target remote localhost:3333" -ex "monitor reset init" -ex "break Reset_Handler" $(ELF)
 
 openocd-server:
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"
+	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000"
 
 reset:
-	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "init; reset; exit;"
+	openocd -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 1000" -c "init; reset; exit;"
 
 pico-sdk:
 	git clone --depth 1 -b 2.2.0 https://github.com/raspberrypi/pico-sdk.git $@
